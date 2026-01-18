@@ -155,10 +155,6 @@ export default function StudentDashboard() {
                           {program.description}
                         </p>
                         <div className="mt-4">
-                          <div className="flex items-center justify-between text-sm mb-2">
-                            <span className="text-muted-foreground">Прогресс</span>
-                            <span className="text-foreground font-medium">{progress}%</span>
-                          </div>
                           <Progress value={progress} className="h-2" />
                         </div>
                       </div>
