@@ -42,7 +42,7 @@ export function AdminSidebar() {
       {/* Header */}
       <div className="p-4 border-b border-border flex items-center justify-between">
         {!collapsed && (
-          <span className="font-display text-lg text-foreground">
+          <span className="font-display text-lg text-name-shimmer">
             Эстетика
           </span>
         )}

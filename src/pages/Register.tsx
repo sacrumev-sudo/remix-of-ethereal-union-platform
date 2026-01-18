@@ -191,7 +191,7 @@ export default function Register() {
                   onCheckedChange={(checked) => setAcceptedPrivacy(checked as boolean)}
                   className="mt-1 h-5 w-5"
                 />
-                <Label htmlFor="privacy" className="text-base text-muted-foreground cursor-pointer leading-relaxed">
+                <Label htmlFor="privacy" className="text-base text-foreground cursor-pointer leading-relaxed">
                   Я ознакомлен(а) с{' '}
                   <Link to="/docs/privacy" className="text-gold hover:underline">
                     Политикой конфиденциальности
@@ -206,7 +206,7 @@ export default function Register() {
                   onCheckedChange={(checked) => setAcceptedOffer(checked as boolean)}
                   className="mt-1 h-5 w-5"
                 />
-                <Label htmlFor="offer" className="text-base text-muted-foreground cursor-pointer leading-relaxed">
+                <Label htmlFor="offer" className="text-base text-foreground cursor-pointer leading-relaxed">
                   Я принимаю{' '}
                   <Link to="/docs/offer" className="text-gold hover:underline">
                     Договор оферты

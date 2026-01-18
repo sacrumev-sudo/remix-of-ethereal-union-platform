@@ -118,7 +118,8 @@ export default function StudentDashboard() {
       {/* Greeting */}
       <div className="mb-8">
         <h1 className="font-display text-3xl text-foreground">
-          {getGreeting()}, {userName}
+          {getGreeting()},{' '}
+          <span className="text-name-shimmer">{userName}</span>
         </h1>
         <p className="text-muted-foreground mt-1">
           Рада видеть вас в пространстве

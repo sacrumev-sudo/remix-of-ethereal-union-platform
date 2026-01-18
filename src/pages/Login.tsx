@@ -105,7 +105,7 @@ export default function Login() {
                 onCheckedChange={(checked) => setRememberMe(checked as boolean)}
                 className="h-5 w-5"
               />
-              <Label htmlFor="remember" className="text-base text-muted-foreground cursor-pointer">
+              <Label htmlFor="remember" className="text-base text-foreground cursor-pointer">
                 Запомнить меня
               </Label>
             </div>
@@ -118,7 +118,7 @@ export default function Login() {
             <Button
               type="button"
               variant="outline"
-              className="w-full border-border text-muted-foreground h-12 text-base"
+              className="w-full border-border text-foreground h-12 text-base"
               disabled
             >
               <MessageCircle className="w-5 h-5 mr-2" />
@@ -136,8 +136,8 @@ export default function Login() {
 
           {/* Demo credentials */}
           <div className="mt-8 p-5 bg-muted rounded-lg">
-            <p className="text-sm text-muted-foreground mb-3 font-medium">Тестовые аккаунты:</p>
-            <div className="space-y-2 text-sm text-muted-foreground">
+            <p className="text-sm text-foreground mb-3 font-medium">Тестовые аккаунты:</p>
+            <div className="space-y-2 text-sm text-foreground">
               <p>👑 Админ: ekaterina@estetika.ru / admin123</p>
               <p>🤝 Ассистент: assistant@estetika.ru / assistant123</p>
               <p>📚 Ученица: elena@mail.ru / student123</p>
