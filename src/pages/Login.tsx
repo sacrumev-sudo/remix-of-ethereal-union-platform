@@ -56,10 +56,10 @@ export default function Login() {
             <div className="flex justify-center mb-4">
               <CrownAvatar size="xl" />
             </div>
-            <h1 className="font-display text-2xl text-foreground">
+            <h1 className="font-display text-3xl md:text-4xl text-foreground">
               Войти в пространство
             </h1>
-            <p className="text-sm text-muted-foreground mt-2">
+            <p className="text-base text-muted-foreground mt-2">
               Эстетика чувственной близости
             </p>
           </div>
@@ -73,7 +73,7 @@ export default function Login() {
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email" className="text-base">Email</Label>
               <Input
                 id="email"
                 type="email"
@@ -81,12 +81,12 @@ export default function Login() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
                 required
-                className="bg-input border-border"
+                className="bg-input border-border text-base h-12"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password">Пароль</Label>
+              <Label htmlFor="password" className="text-base">Пароль</Label>
               <Input
                 id="password"
                 type="password"
@@ -94,22 +94,23 @@ export default function Login() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 required
-                className="bg-input border-border"
+                className="bg-input border-border text-base h-12"
               />
             </div>
 
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-3">
               <Checkbox
                 id="remember"
                 checked={rememberMe}
                 onCheckedChange={(checked) => setRememberMe(checked as boolean)}
+                className="h-5 w-5"
               />
-              <Label htmlFor="remember" className="text-sm text-muted-foreground cursor-pointer">
+              <Label htmlFor="remember" className="text-base text-muted-foreground cursor-pointer">
                 Запомнить меня
               </Label>
             </div>
 
-            <Button type="submit" className="w-full bg-gold hover:bg-gold-dark text-primary-foreground">
+            <Button type="submit" className="w-full bg-gold hover:bg-gold-dark text-primary-foreground h-12 text-base">
               Войти
             </Button>
 
@@ -117,16 +118,16 @@ export default function Login() {
             <Button
               type="button"
               variant="outline"
-              className="w-full border-border text-muted-foreground"
+              className="w-full border-border text-muted-foreground h-12 text-base"
               disabled
             >
-              <MessageCircle className="w-4 h-4 mr-2" />
+              <MessageCircle className="w-5 h-5 mr-2" />
               Войти через Telegram (скоро)
             </Button>
           </form>
 
           {/* Register Link */}
-          <p className="text-center text-sm text-muted-foreground mt-6">
+          <p className="text-center text-base text-muted-foreground mt-6">
             Нет аккаунта?{' '}
             <Link to="/register" className="text-gold hover:text-gold-light transition-colors">
               Зарегистрироваться
@@ -134,9 +135,9 @@ export default function Login() {
           </p>
 
           {/* Demo credentials */}
-          <div className="mt-8 p-4 bg-muted rounded-lg">
-            <p className="text-xs text-muted-foreground mb-2 font-medium">Тестовые аккаунты:</p>
-            <div className="space-y-1 text-xs text-muted-foreground">
+          <div className="mt-8 p-5 bg-muted rounded-lg">
+            <p className="text-sm text-muted-foreground mb-3 font-medium">Тестовые аккаунты:</p>
+            <div className="space-y-2 text-sm text-muted-foreground">
               <p>👑 Админ: ekaterina@estetika.ru / admin123</p>
               <p>🤝 Ассистент: assistant@estetika.ru / assistant123</p>
               <p>📚 Ученица: elena@mail.ru / student123</p>
