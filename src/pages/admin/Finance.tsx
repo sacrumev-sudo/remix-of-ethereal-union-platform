@@ -1052,14 +1052,14 @@ export default function AdminFinance() {
             <div className="space-y-2">
               <Label>Программа</Label>
               <Select 
-                value={form.programId} 
-                onValueChange={(v) => setForm(f => ({ ...f, programId: v }))}
+                value={form.programId || '__none__'} 
+                onValueChange={(v) => setForm(f => ({ ...f, programId: v === '__none__' ? '' : v }))}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Не привязана" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Не привязана</SelectItem>
+                  <SelectItem value="__none__">Не привязана</SelectItem>
                   {programs.map(p => (
                     <SelectItem key={p.id} value={p.id}>{p.title}</SelectItem>
                   ))}
@@ -1072,12 +1072,13 @@ export default function AdminFinance() {
               <div className="space-y-2">
                 <Label>Клиент</Label>
                 <Select 
-                  value={form.clientId} 
+                  value={form.clientId || '__none__'} 
                   onValueChange={(v) => {
-                    const user = users.find(u => u.id === v);
+                    const actualValue = v === '__none__' ? '' : v;
+                    const user = users.find(u => u.id === actualValue);
                     setForm(f => ({ 
                       ...f, 
-                      clientId: v, 
+                      clientId: actualValue, 
                       clientName: user?.name || '' 
                     }));
                   }}
@@ -1085,8 +1086,8 @@ export default function AdminFinance() {
                   <SelectTrigger>
                     <SelectValue placeholder="Выберите клиента" />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="">Не указан</SelectItem>
+                <SelectContent>
+                    <SelectItem value="__none__">Не указан</SelectItem>
                     {users.filter(u => u.role === 'student').map(u => (
                       <SelectItem key={u.id} value={u.id}>{u.name}</SelectItem>
                     ))}
@@ -1106,14 +1107,14 @@ export default function AdminFinance() {
               <div className="space-y-2">
                 <Label>Способ оплаты</Label>
                 <Select 
-                  value={form.paymentMethod} 
-                  onValueChange={(v) => setForm(f => ({ ...f, paymentMethod: v as PaymentMethod }))}
+                  value={form.paymentMethod || '__none__'} 
+                  onValueChange={(v) => setForm(f => ({ ...f, paymentMethod: v === '__none__' ? '' : v as PaymentMethod }))}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Не указан" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">Не указан</SelectItem>
+                    <SelectItem value="__none__">Не указан</SelectItem>
                     {PAYMENT_METHODS.map(m => (
                       <SelectItem key={m.value} value={m.value}>{m.label}</SelectItem>
                     ))}
