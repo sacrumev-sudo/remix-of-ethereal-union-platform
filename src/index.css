@@ -7,6 +7,16 @@
 /* Эстетика чувственной близости - Design System */
 
 @layer base {
+  /* Увеличенный базовый размер шрифта для комфортного чтения */
+  html {
+    font-size: 17px;
+  }
+  
+  @media (min-width: 768px) {
+    html {
+      font-size: 18px;
+    }
+  }
   :root {
     /* Landing / Dark Theme */
     --background: 12 35% 8%;

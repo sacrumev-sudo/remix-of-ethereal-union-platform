@@ -84,10 +84,10 @@ export default function Register() {
             <div className="flex justify-center mb-4">
               <CrownAvatar size="xl" />
             </div>
-            <h1 className="font-display text-2xl text-foreground">
+            <h1 className="font-display text-3xl md:text-4xl text-foreground">
               Регистрация
             </h1>
-            <p className="text-sm text-muted-foreground mt-2">
+            <p className="text-base text-muted-foreground mt-2">
               Создайте аккаунт в пространстве
             </p>
           </div>
@@ -101,7 +101,7 @@ export default function Register() {
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="email">Email *</Label>
+              <Label htmlFor="email" className="text-base">Email *</Label>
               <Input
                 id="email"
                 type="email"
@@ -109,13 +109,13 @@ export default function Register() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
                 required
-                className="bg-input border-border"
+                className="bg-input border-border text-base h-12"
               />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="password">Пароль *</Label>
+                <Label htmlFor="password" className="text-base">Пароль *</Label>
                 <Input
                   id="password"
                   type="password"
@@ -123,11 +123,11 @@ export default function Register() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   required
-                  className="bg-input border-border"
+                  className="bg-input border-border text-base h-12"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Повтор *</Label>
+                <Label htmlFor="confirmPassword" className="text-base">Повтор *</Label>
                 <Input
                   id="confirmPassword"
                   type="password"
@@ -135,25 +135,25 @@ export default function Register() {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="••••••••"
                   required
-                  className="bg-input border-border"
+                  className="bg-input border-border text-base h-12"
                 />
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="name">Имя (необязательно)</Label>
+              <Label htmlFor="name" className="text-base">Имя (необязательно)</Label>
               <Input
                 id="name"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Как к вам обращаться"
-                className="bg-input border-border"
+                className="bg-input border-border text-base h-12"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="dob">Дата рождения *</Label>
+              <Label htmlFor="dob" className="text-base">Дата рождения *</Label>
               <Input
                 id="dob"
                 type="text"
@@ -161,37 +161,37 @@ export default function Register() {
                 onChange={(e) => setDob(e.target.value)}
                 placeholder="ДД.ММ.ГГГГ"
                 required
-                className="bg-input border-border"
+                className="bg-input border-border text-base h-12"
               />
-              <p className="text-xs text-muted-foreground">
+              <p className="text-sm text-muted-foreground">
                 Регистрация доступна только для лиц старше 18 лет
               </p>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="telegram">Telegram (необязательно)</Label>
+              <Label htmlFor="telegram" className="text-base">Telegram (необязательно)</Label>
               <div className="relative">
-                <AtSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <AtSign className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <Input
                   id="telegram"
                   type="text"
                   value={telegramUsername}
                   onChange={(e) => setTelegramUsername(e.target.value.replace('@', ''))}
                   placeholder="username"
-                  className="bg-input border-border pl-9"
+                  className="bg-input border-border pl-11 text-base h-12"
                 />
               </div>
             </div>
 
-            <div className="space-y-3 pt-2">
+            <div className="space-y-4 pt-2">
               <div className="flex items-start space-x-3">
                 <Checkbox
                   id="privacy"
                   checked={acceptedPrivacy}
                   onCheckedChange={(checked) => setAcceptedPrivacy(checked as boolean)}
-                  className="mt-0.5"
+                  className="mt-1 h-5 w-5"
                 />
-                <Label htmlFor="privacy" className="text-sm text-muted-foreground cursor-pointer leading-relaxed">
+                <Label htmlFor="privacy" className="text-base text-muted-foreground cursor-pointer leading-relaxed">
                   Я ознакомлен(а) с{' '}
                   <Link to="/docs/privacy" className="text-gold hover:underline">
                     Политикой конфиденциальности
@@ -204,9 +204,9 @@ export default function Register() {
                   id="offer"
                   checked={acceptedOffer}
                   onCheckedChange={(checked) => setAcceptedOffer(checked as boolean)}
-                  className="mt-0.5"
+                  className="mt-1 h-5 w-5"
                 />
-                <Label htmlFor="offer" className="text-sm text-muted-foreground cursor-pointer leading-relaxed">
+                <Label htmlFor="offer" className="text-base text-muted-foreground cursor-pointer leading-relaxed">
                   Я принимаю{' '}
                   <Link to="/docs/offer" className="text-gold hover:underline">
                     Договор оферты
@@ -217,7 +217,7 @@ export default function Register() {
 
             <Button 
               type="submit" 
-              className="w-full bg-gold hover:bg-gold-dark text-primary-foreground mt-4"
+              className="w-full bg-gold hover:bg-gold-dark text-primary-foreground mt-4 h-12 text-base"
               disabled={!acceptedPrivacy || !acceptedOffer}
             >
               Создать аккаунт
@@ -225,7 +225,7 @@ export default function Register() {
           </form>
 
           {/* Login Link */}
-          <p className="text-center text-sm text-muted-foreground mt-6">
+          <p className="text-center text-base text-muted-foreground mt-6">
             Уже есть аккаунт?{' '}
             <Link to="/login" className="text-gold hover:text-gold-light transition-colors">
               Войти
