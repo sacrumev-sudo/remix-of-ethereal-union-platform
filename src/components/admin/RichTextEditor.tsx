@@ -39,9 +39,11 @@ import {
   Highlighter,
   Palette,
   AlertTriangle,
-  Lightbulb,
-  Info,
   ChevronDown,
+  Plus,
+  Trash2,
+  RowsIcon,
+  Columns,
 } from 'lucide-react';
 import { useState, useCallback, useEffect } from 'react';
 import {
@@ -59,6 +61,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
+import KinescopeVideo from './extensions/KinescopeVideo';
 
 interface RichTextEditorProps {
   content: string;
@@ -178,13 +181,17 @@ interface EditorToolbarProps {
   onInsertVideo: () => void;
   onInsertImage: () => void;
   onInsertLink: () => void;
+  onInsertTable: () => void;
 }
 
-const EditorToolbar = ({ editor, onInsertVideo, onInsertImage, onInsertLink }: EditorToolbarProps) => {
+const EditorToolbar = ({ editor, onInsertVideo, onInsertImage, onInsertLink, onInsertTable }: EditorToolbarProps) => {
   const [textColorOpen, setTextColorOpen] = useState(false);
   const [highlightOpen, setHighlightOpen] = useState(false);
   const [quoteColorOpen, setQuoteColorOpen] = useState(false);
   const [calloutOpen, setCalloutOpen] = useState(false);
+  const [tableMenuOpen, setTableMenuOpen] = useState(false);
+
+  const isInTable = editor.isActive('table');
 
   if (!editor) return null;
 
@@ -196,7 +203,7 @@ const EditorToolbar = ({ editor, onInsertVideo, onInsertImage, onInsertLink }: E
       return;
     }
 
-    // Otherwise insert a new quote block (variant stored as node attribute)
+    // Insert empty quote block with placeholder - user will see the placeholder from Tiptap
     editor
       .chain()
       .focus()
@@ -206,7 +213,6 @@ const EditorToolbar = ({ editor, onInsertVideo, onInsertImage, onInsertLink }: E
         content: [
           {
             type: 'paragraph',
-            content: [{ type: 'text', text: 'Введите текст цитаты...' }],
           },
         ],
       })
@@ -535,13 +541,77 @@ const EditorToolbar = ({ editor, onInsertVideo, onInsertImage, onInsertLink }: E
 
         <ToolbarDivider />
 
-        {/* Table */}
-        <ToolbarButton
-          onClick={() => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()}
-          title="Вставить таблицу"
-        >
-          <TableIcon className="w-4 h-4" />
-        </ToolbarButton>
+        {/* Table - with menu when inside table */}
+        {isInTable ? (
+          <Popover open={tableMenuOpen} onOpenChange={setTableMenuOpen}>
+            <PopoverTrigger asChild>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                title="Управление таблицей"
+                className="h-8 px-2 rounded-lg hover:bg-muted/50 gap-1 bg-gold/20 text-gold"
+              >
+                <TableIcon className="w-4 h-4" />
+                <ChevronDown className="w-3 h-3" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-48 p-2" align="start">
+              <div className="space-y-1">
+                <button
+                  onClick={() => { editor.chain().focus().addRowBefore().run(); setTableMenuOpen(false); }}
+                  className="flex items-center gap-2 w-full px-2 py-1.5 rounded hover:bg-muted text-sm"
+                >
+                  <Plus className="w-4 h-4" /> Добавить строку сверху
+                </button>
+                <button
+                  onClick={() => { editor.chain().focus().addRowAfter().run(); setTableMenuOpen(false); }}
+                  className="flex items-center gap-2 w-full px-2 py-1.5 rounded hover:bg-muted text-sm"
+                >
+                  <Plus className="w-4 h-4" /> Добавить строку снизу
+                </button>
+                <button
+                  onClick={() => { editor.chain().focus().addColumnBefore().run(); setTableMenuOpen(false); }}
+                  className="flex items-center gap-2 w-full px-2 py-1.5 rounded hover:bg-muted text-sm"
+                >
+                  <Columns className="w-4 h-4" /> Добавить колонку слева
+                </button>
+                <button
+                  onClick={() => { editor.chain().focus().addColumnAfter().run(); setTableMenuOpen(false); }}
+                  className="flex items-center gap-2 w-full px-2 py-1.5 rounded hover:bg-muted text-sm"
+                >
+                  <Columns className="w-4 h-4" /> Добавить колонку справа
+                </button>
+                <div className="border-t border-border my-1" />
+                <button
+                  onClick={() => { editor.chain().focus().deleteRow().run(); setTableMenuOpen(false); }}
+                  className="flex items-center gap-2 w-full px-2 py-1.5 rounded hover:bg-muted text-sm text-destructive"
+                >
+                  <Trash2 className="w-4 h-4" /> Удалить строку
+                </button>
+                <button
+                  onClick={() => { editor.chain().focus().deleteColumn().run(); setTableMenuOpen(false); }}
+                  className="flex items-center gap-2 w-full px-2 py-1.5 rounded hover:bg-muted text-sm text-destructive"
+                >
+                  <Trash2 className="w-4 h-4" /> Удалить колонку
+                </button>
+                <button
+                  onClick={() => { editor.chain().focus().deleteTable().run(); setTableMenuOpen(false); }}
+                  className="flex items-center gap-2 w-full px-2 py-1.5 rounded hover:bg-muted text-sm text-destructive"
+                >
+                  <Trash2 className="w-4 h-4" /> Удалить таблицу
+                </button>
+              </div>
+            </PopoverContent>
+          </Popover>
+        ) : (
+          <ToolbarButton
+            onClick={onInsertTable}
+            title="Вставить таблицу"
+          >
+            <TableIcon className="w-4 h-4" />
+          </ToolbarButton>
+        )}
 
         <ToolbarDivider />
 
@@ -585,6 +655,7 @@ export default function RichTextEditor({
         blockquote: false,
       }),
       CustomBlockquote,
+      KinescopeVideo,
       ImageResize.configure({
         allowBase64: true,
         HTMLAttributes: {
@@ -630,6 +701,8 @@ export default function RichTextEditor({
       }),
       Placeholder.configure({
         placeholder,
+        showOnlyWhenEditable: true,
+        includeChildren: true,
       }),
       Underline,
       TextStyle,
@@ -726,20 +799,13 @@ export default function RichTextEditor({
     
     const videoId = parseKinescopeUrl(videoUrl);
     if (videoId) {
-      const iframeHtml = `
-        <div class="kinescope-video my-4 rounded-lg overflow-hidden" data-kinescope-id="${videoId}">
-          <div class="relative w-full" style="padding-top: 56.25%;">
-            <iframe 
-              src="https://kinescope.io/embed/${videoId}" 
-              class="absolute top-0 left-0 w-full h-full border-0"
-              allowfullscreen
-              allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
-            ></iframe>
-          </div>
-        </div>
-      `;
-      editor.chain().focus().insertContent(iframeHtml).run();
+      // Use the custom KinescopeVideo extension command
+      editor.chain().focus().setKinescopeVideo({
+        src: `https://kinescope.io/embed/${videoId}`,
+        videoId,
+      }).run();
     } else {
+      // Fallback for non-Kinescope URLs - just insert as text
       editor.chain().focus().insertContent(`<p>${videoUrl}</p>`).run();
     }
     
@@ -804,6 +870,7 @@ export default function RichTextEditor({
         onInsertVideo={handleInsertVideo}
         onInsertImage={handleInsertImage}
         onInsertLink={handleInsertLink}
+        onInsertTable={() => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()}
       />
 
       {/* Link Dialog */}

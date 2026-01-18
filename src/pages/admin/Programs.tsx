@@ -3,16 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getPrograms, cloneProgram, updateProgram, addProgram } from '@/lib/storage';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from '@/components/ui/dialog';
 import { Plus, Edit, Copy, Eye, EyeOff } from 'lucide-react';
 import { toast } from 'sonner';
 import type { Program } from '@/data/mockData';
@@ -20,11 +10,6 @@ import type { Program } from '@/data/mockData';
 export default function AdminPrograms() {
   const navigate = useNavigate();
   const [programs, setLocalPrograms] = useState<Program[]>(() => getPrograms());
-  
-  // Create program dialog state
-  const [createDialogOpen, setCreateDialogOpen] = useState(false);
-  const [newProgramTitle, setNewProgramTitle] = useState('');
-  const [newProgramDescription, setNewProgramDescription] = useState('');
 
   const reloadPrograms = () => {
     setLocalPrograms(getPrograms());
@@ -42,18 +27,14 @@ export default function AdminPrograms() {
     reloadPrograms();
   };
 
+  // A) Создание программы — сразу переход на единый экран ProgramEdit (без модалки)
   const handleCreateProgram = () => {
-    if (!newProgramTitle.trim()) {
-      toast.error('Введите название программы');
-      return;
-    }
-
     const newProgram: Program = {
       id: typeof crypto !== 'undefined' && crypto.randomUUID 
         ? crypto.randomUUID() 
         : `program-${Date.now()}`,
-      title: newProgramTitle.trim(),
-      description: newProgramDescription.trim() || '',
+      title: 'Новая программа',
+      description: '',
       status: 'hidden',
       outline: [],
       createdAt: new Date().toISOString(),
@@ -61,16 +42,7 @@ export default function AdminPrograms() {
 
     addProgram(newProgram);
     toast.success('Программа создана');
-    setCreateDialogOpen(false);
-    setNewProgramTitle('');
-    setNewProgramDescription('');
     navigate(`/admin/programs/${newProgram.id}/edit`);
-  };
-
-  const openCreateDialog = () => {
-    setNewProgramTitle('');
-    setNewProgramDescription('');
-    setCreateDialogOpen(true);
   };
 
   return (
@@ -78,7 +50,7 @@ export default function AdminPrograms() {
       <div className="flex items-center justify-between mb-6">
         <h1 className="font-display text-2xl text-foreground">Программы</h1>
         <Button 
-          onClick={openCreateDialog}
+          onClick={handleCreateProgram}
           className="gap-2 bg-gold hover:bg-gold-dark text-primary-foreground"
         >
           <Plus className="w-4 h-4" /> Создать
@@ -111,44 +83,6 @@ export default function AdminPrograms() {
           </div>
         ))}
       </div>
-
-      {/* Create Program Dialog */}
-      <Dialog open={createDialogOpen} onOpenChange={setCreateDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Создать программу</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4 py-4">
-            <div className="space-y-2">
-              <Label htmlFor="program-title">Название *</Label>
-              <Input
-                id="program-title"
-                value={newProgramTitle}
-                onChange={(e) => setNewProgramTitle(e.target.value)}
-                placeholder="Введите название программы"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="program-description">Описание</Label>
-              <Textarea
-                id="program-description"
-                value={newProgramDescription}
-                onChange={(e) => setNewProgramDescription(e.target.value)}
-                placeholder="Краткое описание программы"
-                rows={3}
-              />
-            </div>
-          </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setCreateDialogOpen(false)}>
-              Отмена
-            </Button>
-            <Button onClick={handleCreateProgram} className="bg-gold hover:bg-gold-dark">
-              Создать
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
