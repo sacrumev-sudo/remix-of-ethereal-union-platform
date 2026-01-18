@@ -69,31 +69,14 @@ export default function Landing() {
       {/* Hero Section */}
       <section className="min-h-[65vh] flex items-center pt-28 pb-12 px-8 md:px-16 lg:px-24">
         <div className="max-w-[1400px] mx-auto w-full flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-          {/* Portrait with gold circle */}
+          {/* Portrait */}
           <div className="flex-shrink-0">
-            <div className="relative">
-              {/* Outer dark ring */}
-              <div className="w-[280px] h-[280px] md:w-[320px] md:h-[320px] rounded-full bg-[#2a1a1a] p-[6px]">
-                {/* Gold ring */}
-                <div 
-                  className="w-full h-full rounded-full p-[2px]"
-                  style={{
-                    background: 'linear-gradient(135deg, #c9a96e 0%, #b8956a 50%, #c9a96e 100%)',
-                  }}
-                >
-                  {/* Inner dark ring */}
-                  <div className="w-full h-full rounded-full bg-[#2a1a1a] p-[6px]">
-                    {/* Photo container */}
-                    <div className="w-full h-full rounded-full overflow-hidden">
-                      <img
-                        src={ekaterina}
-                        alt="Екатерина Вольпер"
-                        className="w-full h-full object-cover object-center scale-[1.0]"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div className="w-[280px] h-[280px] md:w-[320px] md:h-[320px] rounded-full overflow-hidden">
+              <img
+                src={ekaterina}
+                alt="Екатерина Вольпер"
+                className="w-full h-full object-cover object-center"
+              />
             </div>
           </div>
 
