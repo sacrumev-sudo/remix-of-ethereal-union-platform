@@ -1,7 +1,7 @@
 import { useEditor, EditorContent, Editor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Blockquote from '@tiptap/extension-blockquote';
-import Image from '@tiptap/extension-image';
+import ImageResize from 'tiptap-extension-resize-image';
 import Link from '@tiptap/extension-link';
 import { Table } from '@tiptap/extension-table';
 import TableRow from '@tiptap/extension-table-row';
@@ -585,10 +585,10 @@ export default function RichTextEditor({
         blockquote: false,
       }),
       CustomBlockquote,
-      Image.configure({
+      ImageResize.configure({
         allowBase64: true,
         HTMLAttributes: {
-          class: 'rounded-lg max-w-full h-auto my-4',
+          class: 'rounded-xl max-w-full h-auto my-4 shadow-sm',
         },
       }),
       Link.configure({
@@ -704,10 +704,18 @@ export default function RichTextEditor({
   }, []);
 
   const parseKinescopeUrl = (url: string): string | null => {
-    const directMatch = url.match(/kinescope\.io\/(?:embed\/)?([a-zA-Z0-9]+)/);
+    // Support various Kinescope URL formats:
+    // - https://kinescope.io/embed/xxxxx
+    // - https://kinescope.io/xxxxx
+    // - https://kinescope.io/video/detail/xxxxx
+    // - iframe with src="https://kinescope.io/embed/xxxxx"
+    
+    // Match direct URLs with optional paths like /video/detail/ or /embed/
+    const directMatch = url.match(/kinescope\.io\/(?:video\/detail\/|embed\/)?([a-zA-Z0-9-]+)/);
     if (directMatch) return directMatch[1];
     
-    const iframeMatch = url.match(/src=["'].*kinescope\.io\/embed\/([a-zA-Z0-9]+)/);
+    // Match iframe src attribute
+    const iframeMatch = url.match(/src=["'].*?kinescope\.io\/(?:embed\/)?([a-zA-Z0-9-]+)/);
     if (iframeMatch) return iframeMatch[1];
     
     return null;

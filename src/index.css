@@ -52,7 +52,7 @@
     --ivory: 40 50% 97%;
     --ivory-dark: 40 30% 92%;
     
-    /* Sidebar - Admin */
+    /* Sidebar - Landing (dark) */
     --sidebar-background: 12 30% 10%;
     --sidebar-foreground: 36 33% 90%;
     --sidebar-primary: 42 45% 60%;
@@ -61,6 +61,46 @@
     --sidebar-accent-foreground: 36 33% 90%;
     --sidebar-border: 42 30% 20%;
     --sidebar-ring: 42 45% 60%;
+  }
+  
+  /* Admin Theme - Uses same tokens as student (light, premium, boutique) */
+  .theme-admin {
+    --background: 40 50% 97%;
+    --foreground: 12 35% 15%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 12 35% 15%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 12 35% 15%;
+    
+    --primary: 42 45% 50%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 40 30% 92%;
+    --secondary-foreground: 12 35% 15%;
+    
+    --muted: 40 30% 94%;
+    --muted-foreground: 12 20% 45%;
+    
+    --accent: 42 45% 50%;
+    --accent-foreground: 0 0% 100%;
+    
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 42 30% 85%;
+    --input: 40 30% 92%;
+    --ring: 42 45% 50%;
+    
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 12 35% 15%;
+    --sidebar-primary: 42 45% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 40 30% 94%;
+    --sidebar-accent-foreground: 12 35% 15%;
+    --sidebar-border: 42 30% 88%;
+    --sidebar-ring: 42 45% 50%;
   }
   
   /* Student / Light Theme */
@@ -342,13 +382,14 @@
     flex: 1;
   }
 
-  /* Blockquotes (quotes) */
+  /* Blockquotes (quotes) - ALWAYS readable dark text */
   .ProseMirror blockquote,
   .editor-content .ProseMirror blockquote {
     /* default = pink */
     --quote-border: hsl(332 66% 64%);
     --quote-bg-from: hsl(332 80% 96% / 0.90);
     --quote-bg-to: hsl(332 80% 98% / 0.60);
+    --quote-text: hsl(12 35% 15%);
 
     position: relative;
     padding: 1.05em 1.25em 1.05em 1.6em;
@@ -357,10 +398,11 @@
     overflow: hidden;
 
     background: linear-gradient(90deg, var(--quote-bg-from) 0%, var(--quote-bg-to) 100%);
-    border: 1px solid hsl(var(--border) / 0.45);
-    box-shadow: 0 16px 34px -26px hsl(var(--foreground) / 0.45);
+    border: 1px solid hsl(42 30% 85% / 0.6);
+    box-shadow: 0 8px 20px -12px hsl(12 35% 15% / 0.15);
 
-    color: hsl(var(--foreground)) !important;
+    /* CRITICAL: Always dark readable text */
+    color: var(--quote-text);
     font-style: italic;
   }
 
@@ -411,10 +453,22 @@
     --quote-bg-to: hsl(269 85% 98% / 0.60);
   }
 
+  /* Blockquote text - ALWAYS dark and readable */
   .ProseMirror blockquote p,
-  .editor-content .ProseMirror blockquote p {
-    color: hsl(var(--foreground)) !important;
+  .editor-content .ProseMirror blockquote p,
+  .ProseMirror blockquote span,
+  .editor-content .ProseMirror blockquote span,
+  .ProseMirror blockquote strong,
+  .editor-content .ProseMirror blockquote strong,
+  .ProseMirror blockquote em,
+  .editor-content .ProseMirror blockquote em {
+    color: var(--quote-text);
     margin: 0;
+  }
+  
+  /* Placeholder inside blockquote */
+  .ProseMirror blockquote p.is-editor-empty::before {
+    color: hsl(12 20% 50%);
   }
 
   /* Callout blocks */
@@ -486,6 +540,69 @@
     border-radius: 0.75em;
     margin: 1em 0;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  
+  /* Image resize handles styling */
+  .ProseMirror .image-resizer {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+  }
+  
+  .ProseMirror .image-resizer img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    min-width: 100px;
+    min-height: 50px;
+    border-radius: 0.75em;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  }
+  
+  .ProseMirror .image-resizer.ProseMirror-selectednode img {
+    outline: 2px solid hsl(42 45% 50%);
+    outline-offset: 2px;
+  }
+  
+  .ProseMirror .image-resizer .resize-trigger {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: hsl(42 45% 50%);
+    border: 2px solid white;
+    border-radius: 50%;
+    cursor: nwse-resize;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    z-index: 10;
+  }
+  
+  .ProseMirror .image-resizer .resize-trigger:hover {
+    transform: scale(1.2);
+    background: hsl(42 45% 40%);
+  }
+  
+  .ProseMirror .image-resizer .resize-trigger.top-left {
+    top: -6px;
+    left: -6px;
+    cursor: nwse-resize;
+  }
+  
+  .ProseMirror .image-resizer .resize-trigger.top-right {
+    top: -6px;
+    right: -6px;
+    cursor: nesw-resize;
+  }
+  
+  .ProseMirror .image-resizer .resize-trigger.bottom-left {
+    bottom: -6px;
+    left: -6px;
+    cursor: nesw-resize;
+  }
+  
+  .ProseMirror .image-resizer .resize-trigger.bottom-right {
+    bottom: -6px;
+    right: -6px;
+    cursor: nwse-resize;
   }
 
   .ProseMirror table {
