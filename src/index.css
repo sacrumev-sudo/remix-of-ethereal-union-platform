@@ -1,0 +1,683 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Эстетика чувственной близости - Design System */
+
+@layer base {
+  :root {
+    /* Landing / Dark Theme */
+    --background: 12 35% 8%;
+    --foreground: 36 33% 90%;
+    
+    --card: 12 30% 12%;
+    --card-foreground: 36 33% 90%;
+    
+    --popover: 12 30% 10%;
+    --popover-foreground: 36 33% 90%;
+    
+    /* Primary - Gold */
+    --primary: 42 45% 60%;
+    --primary-foreground: 12 35% 8%;
+    
+    /* Secondary - Burgundy */
+    --secondary: 12 50% 20%;
+    --secondary-foreground: 36 33% 90%;
+    
+    --muted: 12 20% 18%;
+    --muted-foreground: 36 20% 60%;
+    
+    --accent: 42 45% 60%;
+    --accent-foreground: 12 35% 8%;
+    
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 42 30% 25%;
+    --input: 12 25% 20%;
+    --ring: 42 45% 60%;
+    
+    --radius: 0.75rem;
+    
+    /* Custom Colors */
+    --gold: 42 45% 60%;
+    --gold-light: 42 50% 70%;
+    --gold-dark: 42 40% 45%;
+    --burgundy: 12 50% 20%;
+    --burgundy-dark: 12 45% 10%;
+    --burgundy-light: 12 35% 30%;
+    --chocolate: 12 35% 15%;
+    --ivory: 40 50% 97%;
+    --ivory-dark: 40 30% 92%;
+    
+    /* Sidebar - Admin */
+    --sidebar-background: 12 30% 10%;
+    --sidebar-foreground: 36 33% 90%;
+    --sidebar-primary: 42 45% 60%;
+    --sidebar-primary-foreground: 12 35% 8%;
+    --sidebar-accent: 12 40% 18%;
+    --sidebar-accent-foreground: 36 33% 90%;
+    --sidebar-border: 42 30% 20%;
+    --sidebar-ring: 42 45% 60%;
+  }
+  
+  /* Student / Light Theme */
+  .theme-student {
+    --background: 40 50% 97%;
+    --foreground: 12 35% 15%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 12 35% 15%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 12 35% 15%;
+    
+    --primary: 42 45% 50%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 40 30% 92%;
+    --secondary-foreground: 12 35% 15%;
+    
+    --muted: 40 30% 94%;
+    --muted-foreground: 12 20% 45%;
+    
+    --accent: 42 45% 50%;
+    --accent-foreground: 0 0% 100%;
+    
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 42 30% 80%;
+    --input: 40 30% 92%;
+    --ring: 42 45% 50%;
+    
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 12 35% 15%;
+    --sidebar-primary: 42 45% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 40 30% 94%;
+    --sidebar-accent-foreground: 12 35% 15%;
+    --sidebar-border: 42 30% 85%;
+    --sidebar-ring: 42 45% 50%;
+  }
+
+  .dark {
+    --background: 12 35% 8%;
+    --foreground: 36 33% 90%;
+    --card: 12 30% 12%;
+    --card-foreground: 36 33% 90%;
+    --popover: 12 30% 10%;
+    --popover-foreground: 36 33% 90%;
+    --primary: 42 45% 60%;
+    --primary-foreground: 12 35% 8%;
+    --secondary: 12 50% 20%;
+    --secondary-foreground: 36 33% 90%;
+    --muted: 12 20% 18%;
+    --muted-foreground: 36 20% 60%;
+    --accent: 42 45% 60%;
+    --accent-foreground: 12 35% 8%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 42 30% 25%;
+    --input: 12 25% 20%;
+    --ring: 42 45% 60%;
+    --sidebar-background: 12 30% 10%;
+    --sidebar-foreground: 36 33% 90%;
+    --sidebar-primary: 42 45% 60%;
+    --sidebar-primary-foreground: 12 35% 8%;
+    --sidebar-accent: 12 40% 18%;
+    --sidebar-accent-foreground: 36 33% 90%;
+    --sidebar-border: 42 30% 20%;
+    --sidebar-ring: 42 45% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6, .font-display {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer components {
+  /* Gold Circle Button */
+  .circle-button {
+    @apply relative w-40 h-40 rounded-full border-2 border-gold flex items-center justify-center text-center transition-all duration-300;
+    @apply hover:border-gold-light hover:shadow-[0_0_30px_rgba(201,169,98,0.3)];
+  }
+  
+  .circle-button-text {
+    @apply font-display text-sm tracking-wider uppercase text-foreground px-4;
+  }
+  
+  /* Premium Card */
+  .premium-card {
+    @apply bg-card rounded-2xl border border-border/50 p-6 shadow-lg transition-all duration-300;
+    @apply hover:shadow-xl hover:border-gold/30;
+  }
+  
+  /* Gold Gradient Text */
+  .text-gold-gradient {
+    @apply bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent;
+  }
+  
+  /* Admin Widget */
+  .admin-widget {
+    @apply bg-card rounded-xl border border-border p-5 cursor-pointer transition-all duration-200;
+    @apply hover:border-gold/50 hover:shadow-md;
+  }
+  
+  /* Student Nav */
+  .student-nav-link {
+    @apply text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm font-medium;
+  }
+  
+  .student-nav-link.active {
+    @apply text-primary border-b-2 border-primary pb-1;
+  }
+
+  /* TipTap Editor Styles - FORCED DARK TEXT */
+  .editor-content .ProseMirror {
+    outline: none;
+    color: #111111 !important;
+    background: hsl(40 50% 97%) !important;
+  }
+
+  .editor-content .ProseMirror > * + * {
+    margin-top: 0.75em;
+  }
+
+  .editor-content .ProseMirror h1,
+  .editor-content .ProseMirror h2,
+  .editor-content .ProseMirror h3,
+  .editor-content .ProseMirror h4 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    color: #111111 !important;
+  }
+
+  .editor-content .ProseMirror h1 {
+    font-size: 2em;
+    line-height: 1.2;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+  }
+
+  .editor-content .ProseMirror h2 {
+    font-size: 1.5em;
+    line-height: 1.3;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+  }
+
+  .editor-content .ProseMirror h3 {
+    font-size: 1.25em;
+    line-height: 1.4;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+  }
+
+  .editor-content .ProseMirror p {
+    line-height: 1.7;
+    color: #111111 !important;
+  }
+
+  .editor-content .ProseMirror li {
+    color: #111111 !important;
+  }
+
+  .editor-content .ProseMirror td,
+  .editor-content .ProseMirror th {
+    color: #111111 !important;
+  }
+
+  .editor-content .ProseMirror strong {
+    color: #111111 !important;
+    font-weight: 600;
+  }
+
+  .editor-content .ProseMirror em {
+    color: #111111 !important;
+  }
+
+  .editor-content .ProseMirror span {
+    color: #111111 !important;
+  }
+
+  /* Fallback for ProseMirror without editor-content wrapper */
+  .ProseMirror {
+    outline: none;
+    color: #1a1a1a;
+  }
+
+  .ProseMirror > * + * {
+    margin-top: 0.75em;
+  }
+
+  .ProseMirror h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2em;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    color: #111111;
+  }
+
+  .ProseMirror h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5em;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    color: #111111;
+  }
+
+  .ProseMirror h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25em;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    color: #111111;
+  }
+
+  .ProseMirror p {
+    line-height: 1.7;
+    color: #1a1a1a !important;
+  }
+
+  .ProseMirror li {
+    color: #1a1a1a !important;
+  }
+
+  .ProseMirror td,
+  .ProseMirror th {
+    color: #1a1a1a !important;
+  }
+
+  .ProseMirror ul,
+  .ProseMirror ol {
+    padding-left: 1.5em;
+    margin: 0.5em 0;
+  }
+
+  .ProseMirror ul {
+    list-style-type: disc;
+  }
+
+  .ProseMirror ol {
+    list-style-type: decimal;
+  }
+
+  .ProseMirror ul[data-type="taskList"] {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .ProseMirror ul[data-type="taskList"] li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5em;
+  }
+
+  .ProseMirror ul[data-type="taskList"] li > label {
+    flex-shrink: 0;
+    margin-top: 0.25em;
+  }
+
+  .ProseMirror ul[data-type="taskList"] li > div {
+    flex: 1;
+  }
+
+  /* Blockquotes (quotes) */
+  .ProseMirror blockquote,
+  .editor-content .ProseMirror blockquote {
+    /* default = pink */
+    --quote-border: hsl(332 66% 64%);
+    --quote-bg-from: hsl(332 80% 96% / 0.90);
+    --quote-bg-to: hsl(332 80% 98% / 0.60);
+
+    position: relative;
+    padding: 1.05em 1.25em 1.05em 1.6em;
+    margin: 1.25em 0;
+    border-radius: 1.1rem;
+    overflow: hidden;
+
+    background: linear-gradient(90deg, var(--quote-bg-from) 0%, var(--quote-bg-to) 100%);
+    border: 1px solid hsl(var(--border) / 0.45);
+    box-shadow: 0 16px 34px -26px hsl(var(--foreground) / 0.45);
+
+    color: hsl(var(--foreground)) !important;
+    font-style: italic;
+  }
+
+  .ProseMirror blockquote::before,
+  .editor-content .ProseMirror blockquote::before {
+    content: '';
+    position: absolute;
+    left: 0.75rem;
+    top: 0.85rem;
+    bottom: 0.85rem;
+    width: 0.35rem;
+    border-radius: 999px;
+    background: var(--quote-border);
+  }
+
+  .ProseMirror blockquote[data-variant="gold"],
+  .editor-content .ProseMirror blockquote[data-variant="gold"] {
+    --quote-border: hsl(43 74% 45%);
+    --quote-bg-from: hsl(43 90% 96% / 0.90);
+    --quote-bg-to: hsl(43 90% 98% / 0.60);
+  }
+
+  .ProseMirror blockquote[data-variant="chocolate"],
+  .editor-content .ProseMirror blockquote[data-variant="chocolate"] {
+    --quote-border: hsl(22 28% 26%);
+    --quote-bg-from: hsl(25 45% 96% / 0.90);
+    --quote-bg-to: hsl(25 45% 98% / 0.60);
+  }
+
+  .ProseMirror blockquote[data-variant="blue"],
+  .editor-content .ProseMirror blockquote[data-variant="blue"] {
+    --quote-border: hsl(214 88% 55%);
+    --quote-bg-from: hsl(214 95% 96% / 0.90);
+    --quote-bg-to: hsl(214 95% 98% / 0.60);
+  }
+
+  .ProseMirror blockquote[data-variant="green"],
+  .editor-content .ProseMirror blockquote[data-variant="green"] {
+    --quote-border: hsl(142 66% 40%);
+    --quote-bg-from: hsl(142 70% 96% / 0.90);
+    --quote-bg-to: hsl(142 70% 98% / 0.60);
+  }
+
+  .ProseMirror blockquote[data-variant="purple"],
+  .editor-content .ProseMirror blockquote[data-variant="purple"] {
+    --quote-border: hsl(269 80% 62%);
+    --quote-bg-from: hsl(269 85% 96% / 0.90);
+    --quote-bg-to: hsl(269 85% 98% / 0.60);
+  }
+
+  .ProseMirror blockquote p,
+  .editor-content .ProseMirror blockquote p {
+    color: hsl(var(--foreground)) !important;
+    margin: 0;
+  }
+
+  /* Callout blocks */
+  .ProseMirror .callout,
+  .editor-content .ProseMirror .callout {
+    border-radius: 0 0.75em 0.75em 0;
+    padding: 1em 1.25em;
+    margin: 1.25em 0;
+  }
+  
+  .ProseMirror .callout p,
+  .editor-content .ProseMirror .callout p {
+    color: #1a1a1a !important;
+    margin: 0;
+  }
+  
+  .ProseMirror .callout-warning {
+    border-left: 4px solid #f59e0b;
+    background: rgba(245, 158, 11, 0.15);
+  }
+  
+  .ProseMirror .callout-tip {
+    border-left: 4px solid #22c55e;
+    background: rgba(34, 197, 94, 0.15);
+  }
+  
+  .ProseMirror .callout-info {
+    border-left: 4px solid #3b82f6;
+    background: rgba(59, 130, 246, 0.15);
+  }
+
+  /* Text highlight colors */
+  .ProseMirror mark {
+    border-radius: 0.25em;
+    padding: 0.1em 0.2em;
+  }
+
+  .ProseMirror pre {
+    background: hsl(40 30% 92%);
+    border-radius: 0.5em;
+    padding: 0.75em 1em;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9em;
+    overflow-x: auto;
+  }
+
+  .ProseMirror code {
+    background: hsl(40 30% 92%);
+    padding: 0.2em 0.4em;
+    border-radius: 0.25em;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9em;
+  }
+
+  .ProseMirror pre code {
+    background: transparent;
+    padding: 0;
+  }
+
+  .ProseMirror hr {
+    border: none;
+    border-top: 1px solid hsl(42 30% 80%);
+    margin: 1.5em 0;
+  }
+
+  .ProseMirror img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.75em;
+    margin: 1em 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+
+  .ProseMirror table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+  }
+
+  .ProseMirror th,
+  .ProseMirror td {
+    border: 1px solid hsl(42 30% 80%);
+    padding: 0.5em 0.75em;
+    text-align: left;
+  }
+
+  .ProseMirror th {
+    background: hsl(40 30% 94%);
+    font-weight: 600;
+  }
+
+  .ProseMirror .kinescope-video {
+    border-radius: 0.75em;
+    overflow: hidden;
+    margin: 1.5em 0;
+    background: hsl(40 30% 94%);
+  }
+
+  .ProseMirror p.is-editor-empty:first-child::before {
+    color: hsl(12 20% 60%);
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+  }
+
+  /* Selection styling */
+  .ProseMirror ::selection {
+    background: hsl(var(--gold) / 0.3);
+  }
+
+  /* Link styling */
+  .ProseMirror a {
+    color: hsl(var(--gold));
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .ProseMirror a:hover {
+    color: hsl(var(--gold-light));
+  }
+
+  /* Editor toolbar styling */
+  .editor-toolbar {
+    background: hsl(0 0% 100%);
+    border-top: 1px solid hsl(42 30% 90%);
+  }
+
+  /* Editor content area */
+  .editor-content .ProseMirror {
+    background: hsl(40 50% 97%);
+  }
+
+  /* Lesson Preview Content Styles */
+  .lesson-preview-content {
+    color: #1a1a1a;
+    line-height: 1.7;
+  }
+
+  .lesson-preview-content h1,
+  .lesson-preview-content h2,
+  .lesson-preview-content h3 {
+    font-family: 'Playfair Display', serif;
+    color: #111111;
+    font-weight: 600;
+    margin: 1.5em 0 0.75em;
+  }
+
+  .lesson-preview-content h1 { font-size: 1.75rem; }
+  .lesson-preview-content h2 { font-size: 1.5rem; }
+  .lesson-preview-content h3 { font-size: 1.25rem; }
+
+  .lesson-preview-content p {
+    margin: 0.75em 0;
+    color: #1a1a1a;
+  }
+
+  .lesson-preview-content ul,
+  .lesson-preview-content ol {
+    margin: 0.75em 0;
+    padding-left: 1.5em;
+  }
+
+  .lesson-preview-content ul {
+    list-style-type: disc;
+  }
+
+  .lesson-preview-content ol {
+    list-style-type: decimal;
+  }
+
+  .lesson-preview-content li {
+    margin: 0.25em 0;
+    color: #1a1a1a;
+  }
+
+  .lesson-preview-content a {
+    color: hsl(var(--gold));
+    text-decoration: underline;
+  }
+
+  .lesson-preview-content blockquote {
+    border-left: 4px solid hsl(var(--gold));
+    padding: 1em 1.5em;
+    margin: 1.5em 0;
+    background: linear-gradient(90deg, rgba(201,169,98,0.08) 0%, transparent 100%);
+    border-radius: 0 0.5rem 0.5rem 0;
+    color: #333333;
+    font-style: italic;
+  }
+
+  .lesson-preview-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    margin: 1em 0;
+  }
+
+  .lesson-preview-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+  }
+
+  .lesson-preview-content td,
+  .lesson-preview-content th {
+    border: 1px solid hsl(var(--border));
+    padding: 0.5rem;
+    color: #1a1a1a;
+  }
+
+  .lesson-preview-content th {
+    background: hsl(40 30% 94%);
+    font-weight: 600;
+  }
+
+  .lesson-preview-content .kinescope-video {
+    border-radius: 0.75em;
+    overflow: hidden;
+    margin: 1.5em 0;
+  }
+
+  .lesson-preview-content strong {
+    font-weight: 600;
+    color: #111111;
+  }
+
+  .lesson-preview-content em {
+    font-style: italic;
+  }
+
+  .lesson-preview-content pre {
+    background: hsl(40 30% 92%);
+    border-radius: 0.5em;
+    padding: 0.75em 1em;
+    overflow-x: auto;
+  }
+
+  .lesson-preview-content code {
+    background: hsl(40 30% 92%);
+    padding: 0.2em 0.4em;
+    border-radius: 0.25em;
+    font-size: 0.9em;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  /* Gold border ring */
+  .ring-gold {
+    box-shadow: 0 0 0 3px hsl(var(--gold) / 0.3);
+  }
+  
+  /* Premium shadow */
+  .shadow-premium {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+  }
+  
+  /* Gold glow */
+  .glow-gold {
+    box-shadow: 0 0 40px hsl(var(--gold) / 0.2);
+  }
+}
