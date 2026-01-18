@@ -27,7 +27,7 @@ export function StudentNavbar() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/app" className="font-display text-lg text-foreground">
+          <Link to="/app" className="font-display text-lg text-name-shimmer">
             Эстетика
           </Link>
 
@@ -49,7 +49,7 @@ export function StudentNavbar() {
           {/* User Menu */}
           <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center gap-3 focus:outline-none">
-              <span className="hidden sm:block text-sm text-muted-foreground">
+              <span className="hidden sm:block text-sm font-medium text-foreground">
                 {effectiveUser?.name || 'Ученица'}
               </span>
               <CrownAvatar size="sm" name={effectiveUser?.name} />

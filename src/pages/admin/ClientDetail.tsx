@@ -170,8 +170,7 @@ export default function AdminClientDetail() {
       <div className="flex items-start justify-between mb-6">
         <div>
           {/* Client name with golden shimmer */}
-          <h1 className="font-display text-2xl bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 bg-clip-text text-transparent animate-pulse" 
-              style={{ animationDuration: '3s' }}>
+          <h1 className="font-display text-2xl text-name-shimmer">
             {client.name || 'Без имени'}
           </h1>
           <p className="text-foreground/80">{client.email}</p>

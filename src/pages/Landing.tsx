@@ -39,7 +39,7 @@ export default function Landing() {
       {/* Header */}
       <header className="absolute top-0 left-0 right-0 z-10 px-8 py-6">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <span className="font-display text-xl text-foreground tracking-wide">
+          <span className="font-display text-xl text-logo-shimmer tracking-wide">
             Екатерина Вольпер
           </span>
           
