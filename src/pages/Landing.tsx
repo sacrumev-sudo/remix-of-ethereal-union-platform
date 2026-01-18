@@ -86,8 +86,7 @@ export default function Landing() {
                     <img
                       src={ekaterina}
                       alt="Екатерина Вольпер"
-                      className="w-full h-full object-cover"
-                      style={{ objectPosition: '50% 25%', transform: 'scale(1.3)' }}
+                      className="w-full h-full object-cover object-top"
                     />
                   </div>
                 </div>
