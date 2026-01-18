@@ -35,14 +35,14 @@ export function AdminSidebar() {
   return (
     <aside
       className={cn(
-        'fixed left-0 top-0 h-screen bg-sidebar border-r border-sidebar-border flex flex-col transition-all duration-300 z-50',
+        'fixed left-0 top-0 h-screen bg-white border-r border-border flex flex-col transition-all duration-300 z-50 shadow-sm',
         collapsed ? 'w-16' : 'w-64'
       )}
     >
       {/* Header */}
-      <div className="p-4 border-b border-sidebar-border flex items-center justify-between">
+      <div className="p-4 border-b border-border flex items-center justify-between">
         {!collapsed && (
-          <span className="font-display text-lg text-sidebar-foreground">
+          <span className="font-display text-lg text-foreground">
             Эстетика
           </span>
         )}
@@ -50,7 +50,7 @@ export function AdminSidebar() {
           variant="ghost"
           size="icon"
           onClick={() => setCollapsed(!collapsed)}
-          className="text-sidebar-foreground hover:bg-sidebar-accent"
+          className="text-muted-foreground hover:text-foreground hover:bg-muted"
         >
           {collapsed ? (
             <ChevronRight className="w-4 h-4" />
@@ -64,20 +64,21 @@ export function AdminSidebar() {
       <nav className="flex-1 p-2 space-y-1 overflow-y-auto">
         {navItems.map((item) => {
           const Icon = item.icon;
-          const isActive = location.pathname === item.href;
+          const isActive = location.pathname === item.href || 
+            (item.href !== '/admin' && location.pathname.startsWith(item.href));
 
           return (
             <Link
               key={item.href}
               to={item.href}
               className={cn(
-                'flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors',
+                'flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors',
                 isActive
-                  ? 'bg-sidebar-accent text-sidebar-primary'
-                  : 'text-sidebar-foreground hover:bg-sidebar-accent/50'
+                  ? 'bg-primary/10 text-primary font-medium'
+                  : 'text-foreground hover:bg-muted'
               )}
             >
-              <Icon className="w-5 h-5 flex-shrink-0" />
+              <Icon className={cn('w-5 h-5 flex-shrink-0', isActive && 'text-primary')} />
               {!collapsed && <span className="text-sm">{item.label}</span>}
             </Link>
           );
@@ -85,15 +86,15 @@ export function AdminSidebar() {
       </nav>
 
       {/* User Section */}
-      <div className="p-4 border-t border-sidebar-border">
+      <div className="p-4 border-t border-border">
         <div className={cn('flex items-center', collapsed ? 'justify-center' : 'gap-3')}>
           <CrownAvatar size="sm" name={user?.name} />
           {!collapsed && (
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-sidebar-foreground truncate">
+              <p className="text-sm font-medium text-foreground truncate">
                 {user?.name}
               </p>
-              <p className="text-xs text-sidebar-foreground/60 truncate">
+              <p className="text-xs text-muted-foreground truncate">
                 {user?.role === 'admin' ? 'Администратор' : 'Ассистент'}
               </p>
             </div>
@@ -104,7 +105,7 @@ export function AdminSidebar() {
           size="sm"
           onClick={logout}
           className={cn(
-            'mt-3 text-sidebar-foreground/60 hover:text-destructive hover:bg-sidebar-accent/50',
+            'mt-3 text-muted-foreground hover:text-destructive hover:bg-destructive/10',
             collapsed ? 'w-full justify-center' : 'w-full justify-start'
           )}
         >

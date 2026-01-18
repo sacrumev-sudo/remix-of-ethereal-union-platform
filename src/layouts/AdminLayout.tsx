@@ -11,7 +11,7 @@ export function AdminLayout() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background theme-admin">
       <AdminSidebar />
       <main className="ml-16 lg:ml-64 min-h-screen transition-all duration-300">
         <div className="container mx-auto px-6 py-8">
