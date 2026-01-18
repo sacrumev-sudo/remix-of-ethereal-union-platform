@@ -35,18 +35,7 @@ export default function LessonProgress({ percent, showStars = true, className }:
         )}
       />
 
-      {/* Progress explanation */}
-      <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
-        <span className={percent >= 80 ? "text-gold" : ""}>
-          80% — видео просмотрено
-        </span>
-        <span className={percent >= 90 ? "text-gold" : ""}>
-          90% — ДЗ отправлено
-        </span>
-        <span className={percent >= 100 ? "text-gold" : ""}>
-          100% — ДЗ проверено
-        </span>
-      </div>
+      {/* Progress steps - hidden from student view, shown only for admins */}
 
       {isComplete && showStars && (
         <div className="mt-4 p-4 bg-gold/10 rounded-xl border border-gold/30 text-center">

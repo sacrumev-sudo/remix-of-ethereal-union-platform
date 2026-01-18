@@ -11,11 +11,29 @@ export default function AdminClients() {
   const payments = getPayments();
   const programs = getPrograms();
 
-  const filtered = users.filter(u => 
-    u.name.toLowerCase().includes(search.toLowerCase()) ||
-    u.email.toLowerCase().includes(search.toLowerCase()) ||
-    (u.telegramUsername || '').toLowerCase().includes(search.toLowerCase())
-  );
+  // Search across ALL columns: name, email, telegram, and programs
+  const filtered = users.filter(u => {
+    const searchLower = search.toLowerCase();
+    if (!searchLower) return true;
+    
+    // Get user's programs for search
+    const access = getUserAccess(u.id);
+    const userPrograms = access
+      .map(a => programs.find(p => p.id === a.programId)?.title || '')
+      .join(' ')
+      .toLowerCase();
+    
+    // Get user activity date
+    const activityDate = formatDateRu(u.lastLoginAt).toLowerCase();
+    
+    return (
+      u.name.toLowerCase().includes(searchLower) ||
+      u.email.toLowerCase().includes(searchLower) ||
+      (u.telegramUsername || '').toLowerCase().includes(searchLower) ||
+      userPrograms.includes(searchLower) ||
+      activityDate.includes(searchLower)
+    );
+  });
 
   return (
     <div>
@@ -24,7 +42,7 @@ export default function AdminClients() {
       <div className="relative mb-6 max-w-md">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
         <Input
-          placeholder="Поиск по имени, email, telegram..."
+          placeholder="Поиск по всем колонкам..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="pl-10"
@@ -35,11 +53,11 @@ export default function AdminClients() {
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border">
-              <th className="text-left py-3 px-4 text-muted-foreground font-medium">Имя</th>
-              <th className="text-left py-3 px-4 text-muted-foreground font-medium">Email</th>
-              <th className="text-left py-3 px-4 text-muted-foreground font-medium">Telegram</th>
-              <th className="text-left py-3 px-4 text-muted-foreground font-medium">Программы</th>
-              <th className="text-left py-3 px-4 text-muted-foreground font-medium">Активность</th>
+              <th className="text-left py-3 px-4 text-foreground/70 font-medium">Имя</th>
+              <th className="text-left py-3 px-4 text-foreground/70 font-medium">Email</th>
+              <th className="text-left py-3 px-4 text-foreground/70 font-medium">Telegram</th>
+              <th className="text-left py-3 px-4 text-foreground/70 font-medium">Программы</th>
+              <th className="text-left py-3 px-4 text-foreground/70 font-medium">Активность</th>
             </tr>
           </thead>
           <tbody>
@@ -52,22 +70,22 @@ export default function AdminClients() {
               return (
                 <tr key={user.id} className="border-b border-border/50 hover:bg-muted/50">
                   <td className="py-3 px-4">
-                    <Link to={`/admin/clients/${user.id}`} className="text-foreground hover:text-gold">
+                    <Link to={`/admin/clients/${user.id}`} className="text-foreground font-medium hover:text-primary">
                       {user.name || 'Без имени'}
                     </Link>
                   </td>
-                  <td className="py-3 px-4 text-muted-foreground">{user.email}</td>
+                  <td className="py-3 px-4 text-foreground/80">{user.email}</td>
                   <td className="py-3 px-4">
                     {user.telegramUsername ? (
-                      <a href={`https://t.me/${user.telegramUsername}`} target="_blank" rel="noopener" className="text-gold hover:underline flex items-center gap-1">
+                      <a href={`https://t.me/${user.telegramUsername}`} target="_blank" rel="noopener" className="text-primary hover:underline flex items-center gap-1">
                         @{user.telegramUsername} <ExternalLink className="w-3 h-3" />
                       </a>
                     ) : '-'}
                   </td>
-                  <td className="py-3 px-4 text-muted-foreground">
+                  <td className="py-3 px-4 text-foreground/80">
                     {userPrograms.length > 0 ? userPrograms.join(', ') : '-'}
                   </td>
-                  <td className="py-3 px-4 text-muted-foreground">{formatDateRu(user.lastLoginAt)}</td>
+                  <td className="py-3 px-4 text-foreground/80">{formatDateRu(user.lastLoginAt)}</td>
                 </tr>
               );
             })}

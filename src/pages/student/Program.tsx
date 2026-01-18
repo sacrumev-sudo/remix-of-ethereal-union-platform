@@ -109,9 +109,7 @@ export default function StudentProgram() {
             )}
           </div>
 
-          {progress && (
-            <span className="text-sm font-medium text-muted-foreground">{progress.percent}%</span>
-          )}
+          {/* Progress hidden from student - shown only as bar */}
         </Link>
       );
     }
