@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
-import ekaterina from '@/assets/ekaterina-portrait.jpg';
+import ekaterina from '@/assets/ekaterina-hero.png';
 import leopardPattern from '@/assets/leopard-pattern.jpg';
 
 export default function Landing() {
@@ -43,51 +43,54 @@ export default function Landing() {
             Екатерина Вольпер
           </span>
           
-          <nav className="hidden md:flex items-center gap-12">
+          <nav className="hidden md:flex items-center gap-10">
             <Link 
               to="/philosophy" 
-              className="text-xs tracking-[0.25em] text-[#f5f0e8]/80 hover:text-[#f5f0e8] transition-colors uppercase"
+              className="text-[11px] tracking-[0.2em] text-[#c9a96e]/90 hover:text-[#c9a96e] transition-colors uppercase"
             >
               Философия
             </Link>
             <Link 
               to="/contacts" 
-              className="text-xs tracking-[0.25em] text-[#f5f0e8]/80 hover:text-[#f5f0e8] transition-colors uppercase"
+              className="text-[11px] tracking-[0.2em] text-[#c9a96e]/90 hover:text-[#c9a96e] transition-colors uppercase"
             >
               Контакты
             </Link>
             <button
               onClick={handleEnterSpace}
-              className="px-5 py-2.5 rounded-sm border border-[#c9a96e]/60 text-xs tracking-[0.2em] text-[#f5f0e8]/90 hover:border-[#c9a96e] hover:text-[#f5f0e8] transition-all uppercase"
+              className="px-5 py-2 rounded-sm border border-[#c9a96e]/50 text-[11px] tracking-[0.15em] text-[#c9a96e]/90 hover:border-[#c9a96e] hover:text-[#c9a96e] transition-all uppercase leading-tight"
             >
-              Войти в пространство
+              Войти в<br />пространство
             </button>
           </nav>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="min-h-[60vh] flex items-center pt-24 pb-8 px-6 md:px-12">
-        <div className="max-w-[1400px] mx-auto w-full grid lg:grid-cols-[auto_1fr] gap-16 lg:gap-24 items-center">
+      <section className="min-h-[65vh] flex items-center pt-28 pb-12 px-8 md:px-16 lg:px-24">
+        <div className="max-w-[1400px] mx-auto w-full flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
           {/* Portrait with gold circle */}
-          <div className="flex justify-center lg:justify-start">
+          <div className="flex-shrink-0">
             <div className="relative">
-              {/* Outer gold ring */}
-              <div 
-                className="w-64 h-64 md:w-80 md:h-80 rounded-full p-[3px]"
-                style={{
-                  background: 'linear-gradient(135deg, #c9a96e 0%, #d4b87a 50%, #c9a96e 100%)',
-                }}
-              >
-                {/* Dark inner ring */}
-                <div className="w-full h-full rounded-full bg-[#1a0f0f] p-[4px]">
-                  {/* Photo container */}
-                  <div className="w-full h-full rounded-full overflow-hidden">
-                    <img
-                      src={ekaterina}
-                      alt="Екатерина Вольпер"
-                      className="w-full h-full object-cover object-top"
-                    />
+              {/* Outer dark ring */}
+              <div className="w-[280px] h-[280px] md:w-[320px] md:h-[320px] rounded-full bg-[#2a1a1a] p-[6px]">
+                {/* Gold ring */}
+                <div 
+                  className="w-full h-full rounded-full p-[2px]"
+                  style={{
+                    background: 'linear-gradient(135deg, #c9a96e 0%, #b8956a 50%, #c9a96e 100%)',
+                  }}
+                >
+                  {/* Inner dark ring */}
+                  <div className="w-full h-full rounded-full bg-[#2a1a1a] p-[6px]">
+                    {/* Photo container */}
+                    <div className="w-full h-full rounded-full overflow-hidden">
+                      <img
+                        src={ekaterina}
+                        alt="Екатерина Вольпер"
+                        className="w-full h-full object-cover object-center scale-[1.0]"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -96,14 +99,14 @@ export default function Landing() {
 
           {/* Title */}
           <div className="text-center lg:text-left">
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-[#c9a96e] leading-[1.1] tracking-wide">
+            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl xl:text-[4.5rem] text-[#c9a96e] leading-[1.05] tracking-[0.02em]">
               ЭСТЕТИКА
               <br />
               ЧУВСТВЕННОЙ
               <br />
               БЛИЗОСТИ
             </h1>
-            <p className="mt-8 text-xs md:text-sm text-[#c9a96e]/70 tracking-[0.3em] uppercase">
+            <p className="mt-10 text-[11px] md:text-xs text-[#c9a96e]/60 tracking-[0.35em] uppercase font-light">
               Образовательная среда нового поколения
             </p>
           </div>
