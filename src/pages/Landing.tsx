@@ -71,7 +71,12 @@ export default function Landing() {
         <div className="max-w-[1400px] mx-auto w-full flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
           {/* Portrait */}
           <div className="flex-shrink-0">
-            <div className="w-[280px] h-[280px] md:w-[320px] md:h-[320px] rounded-full overflow-hidden">
+            <div 
+              className="w-[180px] h-[180px] md:w-[200px] md:h-[200px] rounded-full overflow-hidden"
+              style={{
+                border: '2px solid #c9a96e',
+              }}
+            >
               <img
                 src={ekaterina}
                 alt="Екатерина Вольпер"
